@@ -1,0 +1,55 @@
+<div class="container">
+  <div class="row">
+    <div class="hero-text">
+      <h1>Music genres</h1> 
+      <button type="button" class="btn btn-primary"><a href="#/tracks">List all Tracks</a></button>
+      <form>
+        <label>Search</label>
+            <input class="form-control" placeholder="Search..." ng-model="name" name="srch-term" id="srch-term" type="text">
+      </form>
+    </div>
+    <table class="table">
+      <thead>
+        <tr>
+            <th>Genre Name</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="genre in genres.results | filter:name">
+          <td>{{genre.name}}</td>
+          <td><a ng-click="editModal(genre)"><i class="fa fa-pencil" aria-hidden="true"></i></a></td> 
+          <td><a ng-click="deleteCtrl(genre.id)"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+        </tr>
+      </tbody>
+    </table>
+    <button class="btn btn-primary" colspan="4" ng-click="createModal()">Add New Genre</button>
+    <button class="btn btn-default" ng-disabled="pageNo==1" ng-click="pageCtrl(-1)">Previous</button>
+    <button class="btn btn-default" ng-click="pageCtrl(1)">Next</button>
+</div>
+
+<div class="modal fade" id="modifyModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">{{(editStatus == false)? 'Add' : 'Edit'}} Genre Name</h4>
+      </div>
+      <div class="modal-body">
+        <form name="" method="POST">
+          <label for="name">Name</label>
+            <input type="text" class="form-control" ng-model="genreName" tabindex="3"/>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" ng-click="modify(genreName)" data-dismiss="modal">{{(editStatus == false)? 'Add' : 'Save'}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
