@@ -23,7 +23,7 @@ app.factory('trackService', function ($resource) {
         },
         'create': { 
             method:'POST',
-            url: "http://104.197.128.152:8000/v1/genres/" 
+            url: "http://104.197.128.152:8000/v1/tracks/" 
         },
         'update': { 
             method:'POST',
@@ -32,6 +32,10 @@ app.factory('trackService', function ($resource) {
         'remove': { 
             method: "DELETE", 
             url: "http://104.197.128.152:8000/v1/tracks/:id" 
+        },
+        'search': {
+            method: "GET",
+            url: "http://104.197.128.152:8000/v1/tracks?title=:name"
         },
         'get': {
             method: "GET",
@@ -88,17 +92,13 @@ app.controller('trackCtrl', function($scope, trackService) {
         $scope.onpageload();
     }
 
-    $scope.updateCtrl = function(track, rating) {
-       trackService.update({id: $scope.editID}, {title: track, rating: rating})
-       $scope.onpageload();
+    $scope.searchName = function(trackName){
+        setTimeout(function () {
+           $scope.tracks = trackService.search({name:trackName});
+           $scope.$apply();
+        }, 700);
     }
 
-    $scope.edit = function(track){
-        $('#myModal').modal('show');
-        $scope.titleName = track.title
-        $scope.rating = track.rating
-        $scope.editID = track.id
-    }
 });
 
 app.factory('genreService', function ($resource) {

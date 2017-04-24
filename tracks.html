@@ -1,12 +1,17 @@
 <div class="container">
   <div class="row">
     <div class="hero-text">
-     <h1>Music Tracks</h1>
-     <button type="button" class="btn btn-primary"><a href="#/genres">List all Genres</a></button>
-     <form>
-       <label>Search</label>
-       <input class="form-control" placeholder="Search..." ng-model="title" name="srch-term" id="srch-term" type="text">
-     </form>
+      <h1>Music Tracks</h1>
+      <button type="button" class="btn btn-primary"><a href="#/genres">List all Genres</a></button>
+      <form class="navbar-form" role="search">
+      <label>Search</label>
+		  <div class="input-group">
+			  <input type="text" class="form-control" ng-model="trackName" placeholder="Search" name="srch-term" id="srch-term">
+			  <div class="input-group-btn">
+				  <button class="btn btn-default" type="submit" ng-click="searchName(trackName)"><i class="glyphicon glyphicon-search"></i></button>
+			  </div>
+		  </div>
+		</form>
    </div>
     <table class="table">
       <thead>
@@ -18,7 +23,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="track in tracks.results | filter:title">
+        <tr ng-repeat="track in tracks.results">
           <td>{{track.title}}</td>
           <td star-rating rating-value="track.rating" max="10"></td>
           <td><a ng-click="editModal(track)"><i class="fa fa-pencil" aria-hidden="true"></i></a></td> 
@@ -36,20 +41,22 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="myModalLabel">{{(editStatus == false)? 'Add' : 'Edit'}} Genre Name</h4>
+          <h4 class="modal-title" id="myModalLabel">{{(editStatus == false)? 'Add' : 'Edit'}} Tracks</h4>
       </div>
-      <div class="modal-body">
-        <form name="" method="POST">
-          <label for="name">Name</label>
-            <input type="text" class="form-control" ng-model="titleName" tabindex="3"/>
-           <label for="name">Rating</label> 
-            <input type="text" class="form-control" ng-model="rating" tabindex="3"/>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary" ng-click="modify(titleName, rating)" data-dismiss="modal">{{(editStatus == false)? 'Add' : 'Save'}}</button>
-      </div>
+      <form name="" method="POST">
+        <div class="modal-body">
+            <label for="name">Name</label>
+              <input type="text" class="form-control" ng-model="titleName" tabindex="3"/>
+            <label for="name">Rating</label> 
+              <input type="text" class="form-control" ng-model="rating" tabindex="3"/>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary" ng-click="modify(titleName, rating)" data-dismiss="modal">{{(editStatus == false)? 'Add' : 'Save'}}</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
+
+
